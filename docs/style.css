@@ -1,0 +1,20 @@
+/* Basic styles */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #1a1a1a;
+}
+
+object {
+    display: block;
+    margin: 20px auto;
+    max-width: 1200px; /* Adjust as needed */
+    border: 1px solid #ccc;
+    background-color: #fff;
+} 
