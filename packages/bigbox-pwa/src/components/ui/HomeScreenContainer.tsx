@@ -1,5 +1,5 @@
 import React from 'react';
-import * as sandboxManager from '@bigbox/sandbox-manager';
+import * as sandboxManager from '../../services/sandbox-manager';
 import { SandboxIcon } from '../SandboxIcon';
 
 interface HomeScreenContainerProps {

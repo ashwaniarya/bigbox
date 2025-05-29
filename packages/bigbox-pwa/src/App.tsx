@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import * as sandboxManager from '@bigbox/sandbox-manager';
+import * as sandboxManager from './services/sandbox-manager';
 import { HomeShell } from './components/HomeShell'
 
 function App() {

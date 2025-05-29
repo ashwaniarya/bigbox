@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as sandboxManager from '@bigbox/sandbox-manager';
+import * as sandboxManager from '../services/sandbox-manager';
 
 interface SandboxListModalProps {
   sandboxes: sandboxManager.Sandbox[];

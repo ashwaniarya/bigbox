@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import * as sandboxManager from '@bigbox/sandbox-manager';
+import * as sandboxManager from '../services/sandbox-manager';
 import './HomeShell.css';
 
 // Import UI components

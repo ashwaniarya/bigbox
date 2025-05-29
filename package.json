@@ -3,8 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"build": "pnpm run build:sandbox && pnpm run build:pwa",
-		"build:sandbox": "pnpm --filter @bigbox/sandbox-manager build",
+		"build": "pnpm run build:pwa",
 		"build:pwa": "pnpm --filter bigbox-pwa build",
 		"dev": "pnpm --filter bigbox-pwa dev",
 		"preview": "pnpm --filter bigbox-pwa preview",
@@ -14,6 +13,7 @@
 		"react-icons": "^5.5.0"
 	},
 	"devDependencies": {
+		"globals": "^16.2.0",
 		"workbox-window": "^7.3.0"
 	}
 }

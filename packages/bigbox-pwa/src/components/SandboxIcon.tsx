@@ -1,4 +1,4 @@
-import * as sandboxManager from '@bigbox/sandbox-manager';
+import * as sandboxManager from '../services/sandbox-manager';
 
 interface SandboxIconProps {
   sandbox: sandboxManager.Sandbox;

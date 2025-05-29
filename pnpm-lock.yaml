@@ -14,15 +14,18 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.0)
     devDependencies:
+      globals:
+        specifier: ^16.2.0
+        version: 16.2.0
       workbox-window:
         specifier: ^7.3.0
         version: 7.3.0
 
   packages/bigbox-pwa:
     dependencies:
-      '@bigbox/sandbox-manager':
-        specifier: file:../sandbox-manager
-        version: link:../sandbox-manager
+      idb:
+        specifier: ^8.0.3
+        version: 8.0.3
       openai:
         specifier: ^5.0.0
         version: 5.0.0
@@ -1474,6 +1477,10 @@ packages:
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==, tarball: https://registry.npmjs.org/glob/-/glob-7.2.3.tgz}
     deprecated: Glob versions prior to v9 are no longer supported
+
+  globals@16.2.0:
+    resolution: {integrity: sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg==, tarball: https://registry.npmjs.org/globals/-/globals-16.2.0.tgz}
+    engines: {node: '>=18'}
 
   globalthis@1.0.4:
     resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==, tarball: https://registry.npmjs.org/globalthis/-/globalthis-1.0.4.tgz}
@@ -3942,6 +3949,8 @@ snapshots:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
+
+  globals@16.2.0: {}
 
   globalthis@1.0.4:
     dependencies:
