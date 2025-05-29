@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install && pnpm build",
+  "buildCommand": "pnpm config set registry https://registry.npmjs.org/ && pnpm install --no-frozen-lockfile && pnpm build",
   "outputDirectory": "packages/bigbox-pwa/dist",
   "installCommand": "npm install -g pnpm",
   "framework": "vite"
