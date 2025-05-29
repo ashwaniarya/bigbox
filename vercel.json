@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run install:all && npm run build",
+  "buildCommand": "cd packages/sandbox-manager && npm install && npm run build && cd ../.. && cd packages/bigbox-pwa && npm install && npm run build",
   "outputDirectory": "packages/bigbox-pwa/dist",
   "installCommand": "npm install",
   "framework": "vite"
