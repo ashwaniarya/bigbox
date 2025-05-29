@@ -3,9 +3,12 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"build": "pnpm --filter bigbox-pwa build",
-		"dev": "pnpm --filter bigbox-pwa dev",
-		"preview": "pnpm --filter bigbox-pwa preview"
+		"build": "npm run build:sandbox && npm run build:pwa",
+		"build:sandbox": "cd packages/sandbox-manager && npm run build",
+		"build:pwa": "cd packages/bigbox-pwa && npm run build",
+		"dev": "cd packages/bigbox-pwa && npm run dev",
+		"preview": "cd packages/bigbox-pwa && npm run preview",
+		"install:all": "npm install && cd packages/sandbox-manager && npm install && cd ../bigbox-pwa && npm install"
 	},
 	"dependencies": {
 		"react-icons": "^5.5.0"
