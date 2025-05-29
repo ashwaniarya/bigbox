@@ -3,7 +3,6 @@ import * as sandboxManager from '@bigbox/sandbox-manager';
 import './HomeShell.css';
 
 // Import UI components
-import StatusBarContainer from './ui/StatusBarContainer';
 import SearchContainer from './ui/SearchContainer';
 import DockContainer from './ui/DockContainer';
 import HomeScreenContainer from './ui/HomeScreenContainer';
@@ -121,9 +120,6 @@ export function HomeShell({ onDebugLog }: HomeShellProps) {
 
   return (
     <div className={`home-shell ${wallpaper}`}>
-      {/* Status Bar */}
-      {/* <StatusBarContainer /> */}
-
       {/* Main Display Area */}
       <div className="display-area">
         {runningSandbox ? (

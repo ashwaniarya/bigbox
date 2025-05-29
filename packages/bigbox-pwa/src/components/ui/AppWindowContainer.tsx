@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IoChevronBack } from 'react-icons/io5';
 
 interface AppWindowContainerProps {

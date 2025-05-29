@@ -26,10 +26,7 @@ export class OpenAIService {
   static async generateWithGPT4o({
     systemPrompt,
     userPrompt,
-    apiKey,
-    temperature = 0.7,
-    maxTokens = 4000,
-    highReasoning = true
+    apiKey
   }: {
     systemPrompt: string;
     userPrompt: string;
@@ -123,10 +120,7 @@ Make each app unique, modern, and fully functional!`;
     return await this.generateWithGPT4o({
       systemPrompt,
       userPrompt: prompt,
-      apiKey,
-      temperature: 0.7,
-      maxTokens: 4000,
-      highReasoning: true
+      apiKey
     });
   }
 } 
