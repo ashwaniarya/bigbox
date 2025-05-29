@@ -1,6 +1,7 @@
 {
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm build",
+  "version": 2,
+  "buildCommand": "./vercel-build.sh",
   "outputDirectory": "packages/bigbox-pwa/dist",
-  "installCommand": "npm i -g pnpm",
+  "installCommand": "npm install -g pnpm",
   "framework": "vite"
 } 
