@@ -1,4 +1,12 @@
 {
+	"name": "bigbox",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"build": "pnpm --filter bigbox-pwa build",
+		"dev": "pnpm --filter bigbox-pwa dev",
+		"preview": "pnpm --filter bigbox-pwa preview"
+	},
 	"dependencies": {
 		"react-icons": "^5.5.0"
 	},
