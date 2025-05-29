@@ -143,14 +143,19 @@ export function ChatModal({ onClose, onNewSandbox }: ChatModalProps) {
 
         <div className="modal-footer">
           <div className="chat-input">
-            <input
-              type="text"
-              placeholder="Describe the app you want to create..."
+            <textarea
+              placeholder="Describe the app you want to create... (Ctrl+Enter to send)"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
               disabled={isGenerating}
-              maxLength={500}
+              rows={3}
+              style={{ resize: 'vertical' }}
             />
             <button 
               onClick={handleSendMessage}
