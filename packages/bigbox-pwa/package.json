@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bigbox/sandbox-manager": "workspace:^",
+    "@bigbox/sandbox-manager": "0.1.0",
     "openai": "^5.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
