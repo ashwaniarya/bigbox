@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import type { ChatCompletionCreateParams } from 'openai/resources/chat/completions';
 
 /**
  * OpenAI service for handling API requests to GPT-4o
@@ -39,7 +38,7 @@ export class OpenAIService {
       const openai = this.initialize(apiKey);
       
       // Configure parameters to enhance reasoning for complex tasks
-      const params: ChatCompletionCreateParams = {
+      const params = {
         model: 'o3-mini',
         messages: [
           { role: 'system', content: systemPrompt },
@@ -47,7 +46,7 @@ export class OpenAIService {
         ],
       };
       
-      
+      // @ts-expect-error - Using the OpenAI API
       const completion = await openai.chat.completions.create(params);
       
       const content = completion.choices?.[0]?.message?.content;

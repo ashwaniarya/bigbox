@@ -19,7 +19,7 @@ importers:
   packages/bigbox-pwa:
     dependencies:
       '@bigbox/sandbox-manager':
-        specifier: workspace:^
+        specifier: file:../sandbox-manager
         version: link:../sandbox-manager
       openai:
         specifier: ^5.0.0
