@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm config set registry https://registry.yarnpkg.com && pnpm config set strict-ssl false && pnpm install --no-frozen-lockfile && cd packages/sandbox-manager && pnpm build && cd ../bigbox-pwa && pnpm build",
+  "buildCommand": "pnpm install && pnpm build",
   "outputDirectory": "packages/bigbox-pwa/dist",
   "installCommand": "npm install -g pnpm",
   "framework": "vite"
