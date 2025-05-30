@@ -240,7 +240,6 @@ export async function run(id: string, containerElement: HTMLElement): Promise<vo
         iframe.style.width = '100%';
         iframe.style.height = '100%';
         iframe.style.border = 'none';
-        iframe.style.borderRadius = '8px';
         
         console.log(`[SandboxManager] Created iframe for sandbox ${id} with security sandbox attributes`);
         

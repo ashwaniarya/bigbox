@@ -42,7 +42,7 @@ export function SandboxIcon({ sandbox, onClick }: SandboxIconProps) {
   const getDisplayTitle = (sandbox: sandboxManager.Sandbox) => {
     const title = sandbox.meta?.title as string;
     if (title && title.length > 12) {
-      return title.substring(0, 10) + '...';
+      return title.substring(0, 16) + '...';
     }
     return title || 'App';
   };

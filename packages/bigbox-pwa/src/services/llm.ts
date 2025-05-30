@@ -10,40 +10,56 @@ interface LLMResponse {
 interface AppGenerationPrompt {
   userRequest: string;
   apiKey?: string;
+  onStreamUpdate?: (partialContent: string) => void;
+}
+
+const processError = (error: unknown): LLMResponse => {
+  console.error('OpenAI API Error:', error);
+  
+  // Handle specific OpenAI errors
+  let errorMessage = 'Unknown error occurred';
+  if (error && typeof error === 'object' && 'code' in error) {
+    const openaiError = error as { code: string; message?: string };
+    if (openaiError.code === 'invalid_api_key') {
+      errorMessage = 'Invalid API key. Please check your OpenAI API key configuration.';
+    } else if (openaiError.code === 'insufficient_quota') {
+      errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing.';
+    } else if (openaiError.code === 'rate_limit_exceeded') {
+      errorMessage = 'Rate limit exceeded. Please wait a moment and try again.';
+    } else if (openaiError.message) {
+      errorMessage = openaiError.message;
+    }
+  } else if (error instanceof Error) {
+    errorMessage = error.message;
+  }
+  
+  // Return error with specific guidance
+  return {
+    content: `❌ **AI Generation Failed**\n\nError: ${errorMessage}\n\n🔑 **To fix this:**\n1. Check your OpenAI API key configuration\n2. Ensure you have OpenAI credits available\n3. Visit https://platform.openai.com/account/billing to check your usage\n\n⚠️ **For now, I can only create these basic examples:**\n• "calculator" • "todo list" • "timer"`,
+  };
 }
 
 export class LLMService {
-  static async generateApp({ userRequest, apiKey }: AppGenerationPrompt): Promise<LLMResponse> {
+  static async generatePlanning({prompt, apiKey, onStreamUpdate}: {prompt: string, apiKey: string, onStreamUpdate?: (partialContent: string) => void}): Promise<string> {
+    console.log('Generating planning...');
+    if (!apiKey || !apiKey.trim()) {
+      Error('Invalid API key. Please check your OpenAI API key configuration.');
+    }
+    try {
+      return await OpenAIService.generatePlanning(prompt, apiKey, onStreamUpdate);
+    } catch (error: unknown) {
+      return processError(error).content;
+    }
+  }
+  static async generateApp({ userRequest, apiKey, onStreamUpdate }: AppGenerationPrompt): Promise<LLMResponse> {
     // Try real AI generation first if API key is provided
     if (apiKey && apiKey.trim()) {
       try {
         // Use the OpenAIService for GPT-4o with high reasoning
-        const response = await OpenAIService.generateApp(userRequest, apiKey);
+        const response = await OpenAIService.generateApp(userRequest, apiKey, onStreamUpdate);
         return this.parseAIResponse(response, userRequest);
       } catch (error: unknown) {
-        console.error('OpenAI API Error:', error);
-        
-        // Handle specific OpenAI errors
-        let errorMessage = 'Unknown error occurred';
-        if (error && typeof error === 'object' && 'code' in error) {
-          const openaiError = error as { code: string; message?: string };
-          if (openaiError.code === 'invalid_api_key') {
-            errorMessage = 'Invalid API key. Please check your OpenAI API key configuration.';
-          } else if (openaiError.code === 'insufficient_quota') {
-            errorMessage = 'OpenAI API quota exceeded. Please check your OpenAI account billing.';
-          } else if (openaiError.code === 'rate_limit_exceeded') {
-            errorMessage = 'Rate limit exceeded. Please wait a moment and try again.';
-          } else if (openaiError.message) {
-            errorMessage = openaiError.message;
-          }
-        } else if (error instanceof Error) {
-          errorMessage = error.message;
-        }
-        
-        // Return error with specific guidance
-        return {
-          content: `❌ **AI Generation Failed**\n\nError: ${errorMessage}\n\n🔑 **To fix this:**\n1. Check your OpenAI API key configuration\n2. Ensure you have OpenAI credits available\n3. Visit https://platform.openai.com/account/billing to check your usage\n\n⚠️ **For now, I can only create these basic examples:**\n• "calculator" • "todo list" • "timer"`,
-        };
+        return processError(error);
       }
     }
 

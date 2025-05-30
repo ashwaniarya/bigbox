@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface SettingsModalProps {
   onClose: () => void;
@@ -26,6 +26,7 @@ export function SettingsModal({ onClose, wallpaper, onWallpaperChange }: Setting
   });
   
   const [newPrompt, setNewPrompt] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const wallpaperOptions = [
     { id: 'gradient-blue', name: 'Ocean Blue', preview: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
@@ -111,6 +112,44 @@ export function SettingsModal({ onClose, wallpaper, onWallpaperChange }: Setting
     } catch (error) {
       console.error('Failed to export data:', error);
       alert('Failed to export data. Please try again.');
+    }
+  };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const importData = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      
+      const fileContents = await file.text();
+      const importedData = JSON.parse(fileContents);
+      
+      // Validate imported data has the required structure
+      if (importedData.settings) {
+        // Apply imported settings
+        setSettings(prev => ({ ...prev, ...importedData.settings }));
+        
+        // Store in localStorage
+        localStorage.setItem('bigbox-settings', JSON.stringify(importedData.settings));
+        
+        alert('Settings imported successfully!');
+      } else {
+        alert('Invalid data format. Could not import settings.');
+      }
+      
+      // Reset the file input for future imports
+      if (event.target) event.target.value = '';
+    } catch (error) {
+      console.error('Failed to import data:', error);
+      alert('Failed to import data. Please check the file format and try again.');
+      
+      // Reset the file input
+      if (event.target) event.target.value = '';
     }
   };
 
@@ -203,11 +242,21 @@ export function SettingsModal({ onClose, wallpaper, onWallpaperChange }: Setting
                 <button onClick={exportData} className="export-button">
                   📤 Export Data
                 </button>
+                <button onClick={triggerFileInput} className="import-button">
+                  📥 Import Data
+                </button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={importData}
+                  accept=".json"
+                  style={{ display: 'none' }}
+                />
                 <button onClick={clearData} className="clear-button">
                   🗑️ Clear All Data
                 </button>
               </div>
-              <small>Export your settings and apps, or clear all data to start fresh</small>
+              <small>Import or export your settings and apps, or clear all data to start fresh</small>
             </div>
           </section>
 
@@ -215,16 +264,15 @@ export function SettingsModal({ onClose, wallpaper, onWallpaperChange }: Setting
           <section className="settings-section">
             <h3>ℹ️ About</h3>
             <div className="about-info">
-              <p><strong>BigBox PWA</strong></p>
-              <p>Version: 1.0.0 (M1 Complete)</p>
+              <p><strong>BigBox</strong></p>
+              <p>Version: 1.0.0 </p>
               <p>AI-Generated Apps Platform</p>
-              <p>Built with Vite + React + TypeScript</p>
               <p><strong>Features:</strong></p>
               <ul>
                 <li>✅ SandboxManager SDK with IndexedDB</li>
                 <li>✅ Event system with comprehensive logging</li>
                 <li>✅ Android-style Home Shell UI</li>
-                <li>✅ AI Chat for app generation (demo mode)</li>
+                <li>✅ AI Chat for app generation</li>
                 <li>✅ PWA with Service Worker</li>
               </ul>
             </div>
